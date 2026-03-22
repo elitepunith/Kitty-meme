@@ -4,7 +4,7 @@ A simple cat meme gallery and meme maker built with plain HTML, CSS, and JavaScr
 
 ---
 
-![Preview](preview.png)
+![Preview](assets/preview.jpg)
 
 ---
 
