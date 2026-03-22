@@ -1,6 +1,6 @@
 # kitty-meme
 
-A simple cat meme gallery and meme maker built with plain HTML, CSS, and JavaScript. No frameworks, no build tools, just files.
+A simple cat meme gallery and meme maker using Html , CSS and javascript .
 
 ---
 
@@ -31,10 +31,11 @@ To add new images, drop them into the assets folder and add an entry to the imag
 
 ```js
 { src: "assets/your-image.jpg", alt: "description", moods: ["vibes"] }
+
 ```
 
 Available moods: silly, vibes, chaos, sleepy, angry.
 
-## Credits
+## Demo
 
-Built for fun. No kittens were harmed.
+live Demo : https://kitty-meme-steel.vercel.app/
