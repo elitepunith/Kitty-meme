@@ -1,63 +1,40 @@
-# kitty-meme 🐾
+# kitty-meme
 
-so i had a folder of like 60+ cat memes sitting on my desktop doing absolutely nothing. this is what happened next.
+A simple cat meme gallery and meme maker built with plain HTML, CSS, and JavaScript. No frameworks, no build tools, just files.
 
 ---
 
-## what is this
+![Preview](preview.png)
 
-a simple gallery site for cat memes. that's it. no backend, no database, no over-engineering.
-click a cat, download it, or turn it into your own meme. built in a few evenings because i was bored and cats are funny.
+---
 
-## features (the real ones)
+## What it does
 
-- **browse by mood** — silly / vibes / chaos / sleepy / angry. yes these are real categories
-- **search** — type anything into the search bar, it filters live
-- **click to open** — lightbox view with a proper download button (actually downloads the file, not just opens it in a new tab)
-- **meme maker** — pick any cat from the gallery, slam some text on it, download your masterpiece. classic impact font included, comic sans for the brave
-- **hover actions** — hovering a card shows quick save + meme buttons so you don't have to click twice
+Browse a collection of cat images organized by mood. Click any image to view it fullscreen, download it, or open it in the meme maker. The meme maker lets you add top and bottom text with customizable font, size, and colors, then download the result as a JPEG.
 
-## stack
-
-literally just HTML, CSS and vanilla JS. no build step. no npm install. no config files. open index.html and it works.
+## Structure
 
 ```
 kitty-meme/
-├── index.html
-└── assets/       ← drop your cats here
+  index.html
+  assets/
+    *.jpg
 ```
 
-## running it
+All images live in the assets folder. The image list is defined directly in the script inside index.html.
 
-```bash
-git clone https://github.com/yourusername/kitty-meme
-cd kitty-meme
-# open index.html in a browser, or:
-npx serve .
-```
+## Usage
 
-that's it. no "npm run dev". no `.env.example`. just a folder and a file.
+Just open index.html in a browser. No installation, no server required.
 
-## adding more cats
-
-drop any `.jpg`, `.png`, or `.gif` into `/assets`, then add an entry to the `images` array in `index.html`:
+To add new images, drop them into the assets folder and add an entry to the images array in the script:
 
 ```js
-{ src: "assets/your-cat.jpg", alt: "a brief description", moods: ["silly"] }
-// moods can be: silly, vibes, chaos, sleepy, angry (or mix them)
+{ src: "assets/your-image.jpg", alt: "description", moods: ["vibes"] }
 ```
 
-## meme maker tips
+Available moods: silly, vibes, chaos, sleepy, angry.
 
-- font size 40–55 hits the sweet spot for most images
-- white text + black stroke is the classic combo
-- comic sans font setting is not a joke, it genuinely works for certain cats
-- hit "clear text" if you want to start over without reloading the page
+## Credits
 
-## live demo
-
-👉 [kitty-meme-steel.vercel.app](https://kitty-meme-steel.vercel.app/)
-
----
-
-if you have a really good cat meme that belongs here, open a PR. the bar for quality is "made me exhale from my nose".
+Built for fun. No kittens were harmed.
