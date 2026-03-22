@@ -6,7 +6,7 @@
   <title>kitty-meme 🐾</title>
   <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Inconsolata:wght@400;600&family=Kalam:wght@400;700&display=swap" rel="stylesheet" />
   <style>
-    /* ---- base ---- */
+   
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
@@ -27,14 +27,14 @@
       color: var(--ink);
       font-family: 'Inconsolata', monospace;
       min-height: 100vh;
-      /* subtle paper texture via repeating gradient */
+     
       background-image: repeating-linear-gradient(
         0deg, transparent, transparent 28px,
         rgba(0,0,0,.03) 29px
       );
     }
 
-    /* ---- header ---- */
+    
     header {
       background: var(--ink);
       color: var(--cream);
@@ -56,7 +56,7 @@
       letter-spacing: 3px;
       color: var(--cat2);
       line-height: 1;
-      /* slight tilt — very on-brand for a zine */
+      
       display: inline-block;
       transform: rotate(-1deg);
     }
@@ -70,7 +70,7 @@
       font-style: italic;
     }
 
-    /* ---- tabs ---- */
+    
     .tabs {
       display: flex;
       gap: 6px;
@@ -94,7 +94,7 @@
       color: var(--ink);
     }
 
-    /* ---- controls bar ---- */
+    
     .controls {
       padding: 16px 28px;
       display: flex;
@@ -163,7 +163,7 @@
       white-space: nowrap;
     }
 
-    /* ---- gallery grid ---- */
+    
     #gallery-tab { display: block; }
     #maker-tab   { display: none; }
 
@@ -182,7 +182,7 @@
       border-radius: 6px;
       overflow: hidden;
       background: #ddd;
-      /* Each card gets a tiny random tilt via JS */
+     
       transition: transform .2s, box-shadow .2s;
     }
     .card:hover {
@@ -234,7 +234,7 @@
       display: none;
     }
 
-    /* ---- lightbox ---- */
+   
     .lightbox {
       position: fixed;
       inset: 0;
@@ -287,7 +287,7 @@
     }
     .lb-close:hover { border-color: var(--cream); color: var(--cream); }
 
-    /* ---- meme maker ---- */
+    
     .maker-wrap {
       padding: 28px;
       display: flex;
@@ -410,7 +410,7 @@
     }
     .maker-reset-btn:hover { background: var(--pale); }
 
-    /* ---- footer ---- */
+    
     footer {
       margin-top: 40px;
       border-top: 3px dashed var(--grey);
@@ -423,7 +423,7 @@
     footer a { color: var(--cat); text-decoration: none; }
     footer a:hover { text-decoration: underline; }
 
-    /* ---- misc ---- */
+    
     @media (max-width: 600px) {
       .gallery { columns: 2 140px; padding: 14px; }
       header { padding: 14px 16px; }
@@ -433,7 +433,7 @@
 </head>
 <body>
 
-<!-- ======== HEADER ======== -->
+
 <header>
   <div>
     <div class="logo">kitty<span>-</span>meme 🐾</div>
@@ -445,7 +445,7 @@
   </div>
 </header>
 
-<!-- ======== GALLERY TAB ======== -->
+
 <div id="gallery-tab">
   <!-- controls -->
   <div class="controls">
@@ -467,7 +467,7 @@
   <div class="no-results" id="noResults">no cats found 😿 try a different mood</div>
 </div>
 
-<!-- ======== MAKER TAB ======== -->
+
 <div id="maker-tab">
   <div class="maker-wrap">
     <!-- panel -->
@@ -517,7 +517,7 @@
       </div>
     </div>
 
-    <!-- canvas side -->
+   
     <div class="maker-canvas-wrap">
       <canvas id="memeCanvas" width="560" height="560"></canvas>
       <div class="maker-btns">
@@ -531,7 +531,7 @@
   </div>
 </div>
 
-<!-- ======== LIGHTBOX ======== -->
+
 <div class="lightbox" id="lightbox" onclick="closeLightbox(event)">
   <img id="lbImg" src="" alt="kitty" />
   <div class="lb-actions">
@@ -547,8 +547,7 @@
 </footer>
 
 <script>
-  // ─── image data ─────────────────────────────────────────────────────────────
-  // mood tags assigned with love (and chaos)
+
   const images = [
     { src: "assets/style-kitty.jpg",   alt: "Stylish kitty",  moods: ["vibes"] },
     { src: "assets/n-kitty.jpg",        alt: "Neutral kitty",  moods: ["vibes","sleepy"] },
@@ -616,13 +615,12 @@
     { src: "assets/4ac17bc5439c72b79c4f922b2cb54afa.jpg", alt: "Kitty meme", moods: ["silly"] },
   ];
 
-  // ─── state ───────────────────────────────────────────────────────────────────
+ 
   let activeMood = 'all';
   let currentSrc = '';
   let currentAlt = '';
-  let makerImg   = null; // loaded Image object for canvas
+  let makerImg   = null;
 
-  // ─── gallery rendering ────────────────────────────────────────────────────────
   function buildGallery() {
     const gallery = document.getElementById('gallery');
     const thumbStrip = document.getElementById('thumbStrip');
@@ -631,7 +629,7 @@
 
     const tilts = [-2, -1, 0, 1, 2];
     images.forEach((img, i) => {
-      // gallery card
+      
       const card = document.createElement('div');
       card.className = 'card';
       card.dataset.moods = img.moods.join(',');
@@ -649,7 +647,7 @@
       card.addEventListener('click', () => openLightbox(img.src, img.alt));
       gallery.appendChild(card);
 
-      // thumb for meme maker
+      
       const th = document.createElement('img');
       th.src = img.src;
       th.alt = img.alt;
@@ -694,7 +692,7 @@
     document.getElementById('countBadge').textContent = `${images.length} cats`;
   }
 
-  // ─── lightbox ────────────────────────────────────────────────────────────────
+  
   function openLightbox(src, alt) {
     currentSrc = src;
     currentAlt = alt;
@@ -725,8 +723,7 @@
     loadMakerImg(src);
   }
 
-  // ─── download helper ─────────────────────────────────────────────────────────
-  // uses a canvas trick so it works across-origin gracefully
+  
   function downloadImg(src, alt) {
     const img = new Image();
     img.crossOrigin = 'anonymous';
@@ -741,19 +738,19 @@
       a.click();
     };
     img.onerror = () => {
-      // fallback: open in new tab
+      
       window.open(src, '_blank');
     };
     img.src = src + '?t=' + Date.now(); // bust cache to allow crossOrigin
   }
 
-  // ─── meme maker ──────────────────────────────────────────────────────────────
+  
   function loadMakerImg(src) {
     const canvas = document.getElementById('memeCanvas');
     const img = new Image();
     img.onload = () => {
       makerImg = img;
-      // keep canvas square-ish
+    
       const side = Math.min(img.naturalWidth, img.naturalHeight, 560);
       canvas.width  = side;
       canvas.height = side;
@@ -770,7 +767,7 @@
     const w = canvas.width;
     const h = canvas.height;
 
-    // draw image (cover-fit)
+    
     const iw = makerImg.naturalWidth;
     const ih = makerImg.naturalHeight;
     const scale = Math.max(w / iw, h / ih);
@@ -779,7 +776,7 @@
     ctx.clearRect(0, 0, w, h);
     ctx.drawImage(makerImg, dx, dy, iw * scale, ih * scale);
 
-    // text settings
+   
     const size   = parseInt(document.getElementById('fontSize').value);
     const fill   = document.getElementById('textColor').value;
     const stroke = document.getElementById('strokeColor').value;
@@ -819,7 +816,7 @@
     a.click();
   }
 
-  // ─── tab switching ────────────────────────────────────────────────────────────
+  
   function switchTab(tab) {
     document.getElementById('gallery-tab').style.display = tab === 'gallery' ? 'block' : 'none';
     document.getElementById('maker-tab').style.display   = tab === 'maker'   ? 'block' : 'none';
@@ -828,7 +825,6 @@
     });
   }
 
-  // ─── init ─────────────────────────────────────────────────────────────────────
   buildGallery();
 </script>
 </body>
