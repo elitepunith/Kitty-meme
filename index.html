@@ -95,75 +95,6 @@
     }
 
     
-    .controls {
-      padding: 16px 28px;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      flex-wrap: wrap;
-      background: var(--paper);
-      border-bottom: 2px dashed var(--grey);
-    }
-
-    .search-wrap {
-      position: relative;
-      flex: 1;
-      min-width: 200px;
-      max-width: 340px;
-    }
-    .search-wrap input {
-      width: 100%;
-      padding: 9px 14px 9px 38px;
-      border: 2px solid var(--ink);
-      border-radius: 4px;
-      font-family: 'Inconsolata', monospace;
-      font-size: .95rem;
-      background: var(--cream);
-      color: var(--ink);
-      outline: none;
-    }
-    .search-wrap input:focus { border-color: var(--cat); }
-    .search-wrap::before {
-      content: '🔍';
-      position: absolute;
-      left: 10px;
-      top: 50%;
-      transform: translateY(-50%);
-      font-size: .85rem;
-      pointer-events: none;
-    }
-
-    .mood-tags {
-      display: flex;
-      gap: 6px;
-      flex-wrap: wrap;
-    }
-
-    .mood {
-      padding: 5px 13px;
-      border: 2px solid var(--ink);
-      border-radius: 20px;
-      font-size: .8rem;
-      font-family: 'Kalam', cursive;
-      cursor: pointer;
-      background: var(--cream);
-      transition: all .15s;
-      user-select: none;
-    }
-    .mood:hover { background: var(--pale); }
-    .mood.active {
-      background: var(--ink);
-      color: var(--cream);
-    }
-
-    .count-badge {
-      margin-left: auto;
-      font-size: .78rem;
-      color: var(--grey);
-      white-space: nowrap;
-    }
-
-    
     #gallery-tab { display: block; }
     #maker-tab   { display: none; }
 
@@ -420,8 +351,6 @@
       color: var(--grey);
       font-style: italic;
     }
-    footer a { color: var(--cat); text-decoration: none; }
-    footer a:hover { text-decoration: underline; }
 
     
     @media (max-width: 600px) {
@@ -447,24 +376,8 @@
 
 
 <div id="gallery-tab">
-  <!-- controls -->
-  <div class="controls">
-    <div class="search-wrap">
-      <input type="text" id="searchInput" placeholder="search by mood..." oninput="filterGallery()" />
-    </div>
-    <div class="mood-tags">
-      <span class="mood active" data-mood="all"   onclick="setMood('all')">all</span>
-      <span class="mood" data-mood="silly"  onclick="setMood('silly')">😹 silly</span>
-      <span class="mood" data-mood="vibes"  onclick="setMood('vibes')">😎 vibes</span>
-      <span class="mood" data-mood="chaos"  onclick="setMood('chaos')">🔥 chaos</span>
-      <span class="mood" data-mood="sleepy" onclick="setMood('sleepy')">😴 sleepy</span>
-      <span class="mood" data-mood="angry"  onclick="setMood('angry')">😾 angry</span>
-    </div>
-    <div class="count-badge" id="countBadge">loading...</div>
-  </div>
-
   <div class="gallery" id="gallery"></div>
-  <div class="no-results" id="noResults">no cats found 😿 try a different mood</div>
+  <div class="no-results" id="noResults">no cats found 😿</div>
 </div>
 
 
@@ -542,8 +455,7 @@
 </div>
 
 <footer>
-  made with ☕ &amp; questionable sleep — <a href="https://kitty-meme-steel.vercel.app/" target="_blank">live demo</a> ·
-  cats sourced from the good parts of the internet · no kittens were harmed
+  made with ☕ &amp; questionable sleep — no kittens were harmed 🐱
 </footer>
 
 <script>
@@ -616,7 +528,6 @@
   ];
 
  
-  let activeMood = 'all';
   let currentSrc = '';
   let currentAlt = '';
   let makerImg   = null;
@@ -632,8 +543,6 @@
       
       const card = document.createElement('div');
       card.className = 'card';
-      card.dataset.moods = img.moods.join(',');
-      card.dataset.alt  = img.alt.toLowerCase();
       const tilt = tilts[i % tilts.length];
       card.style.transform = `rotate(${tilt}deg)`;
 
@@ -661,35 +570,6 @@
       });
       thumbStrip.appendChild(th);
     });
-
-    updateCount();
-  }
-
-  function filterGallery() {
-    const q = document.getElementById('searchInput').value.toLowerCase();
-    const cards = document.querySelectorAll('.card');
-    let shown = 0;
-    cards.forEach(card => {
-      const moods = card.dataset.moods;
-      const alt   = card.dataset.alt;
-      const moodOk = activeMood === 'all' || moods.includes(activeMood);
-      const textOk = !q || alt.includes(q) || moods.includes(q);
-      const show   = moodOk && textOk;
-      card.style.display = show ? '' : 'none';
-      if (show) shown++;
-    });
-    document.getElementById('noResults').style.display = shown === 0 ? 'block' : 'none';
-    document.getElementById('countBadge').textContent = `${shown} cats`;
-  }
-
-  function setMood(mood) {
-    activeMood = mood;
-    document.querySelectorAll('.mood').forEach(el => el.classList.toggle('active', el.dataset.mood === mood));
-    filterGallery();
-  }
-
-  function updateCount() {
-    document.getElementById('countBadge').textContent = `${images.length} cats`;
   }
 
   
@@ -715,7 +595,6 @@
   }
   function openInMakerSrc(src) {
     switchTab('maker');
-    // highlight correct thumb
     document.querySelectorAll('.thumb-strip img').forEach(t => {
       const active = t.dataset.src === src;
       t.classList.toggle('selected', active);
@@ -738,10 +617,9 @@
       a.click();
     };
     img.onerror = () => {
-      
       window.open(src, '_blank');
     };
-    img.src = src + '?t=' + Date.now(); // bust cache to allow crossOrigin
+    img.src = src + '?t=' + Date.now();
   }
 
   
@@ -750,7 +628,6 @@
     const img = new Image();
     img.onload = () => {
       makerImg = img;
-    
       const side = Math.min(img.naturalWidth, img.naturalHeight, 560);
       canvas.width  = side;
       canvas.height = side;
@@ -767,7 +644,6 @@
     const w = canvas.width;
     const h = canvas.height;
 
-    
     const iw = makerImg.naturalWidth;
     const ih = makerImg.naturalHeight;
     const scale = Math.max(w / iw, h / ih);
@@ -776,7 +652,6 @@
     ctx.clearRect(0, 0, w, h);
     ctx.drawImage(makerImg, dx, dy, iw * scale, ih * scale);
 
-   
     const size   = parseInt(document.getElementById('fontSize').value);
     const fill   = document.getElementById('textColor').value;
     const stroke = document.getElementById('strokeColor').value;
